@@ -1,4 +1,5 @@
-﻿using Lumina.Excel.GeneratedSheets;
+﻿using Lumina.Excel;
+using Lumina.Excel.Sheets;
 
 namespace LeveUp;
 
@@ -85,15 +86,15 @@ public class CalculatorData(int index)
             TotalNqLeves += leveTuple.nq;
             TotalHqLeves += leveTuple.hq;
 
-            if (LeveTable.Count > 0 && LeveTable[^1].leve!.DataId == leveTuple.leve!.DataId)
+            if (LeveTable.Count > 0 && LeveTable[^1].leve!.Value.DataId.RowId == leveTuple.leve!.Value.DataId.RowId)
             {
                 var lastLeve = LeveTable[^1];
                 LeveTable[^1] = (lastLeve.leve, lastLeve.nq + leveTuple.nq, lastLeve.hq + leveTuple.hq);
             }
             else LeveTable.Add(leveTuple);
 
-            nqExpOffset = (int)(leveTuple.leve!.ExpReward * leveTuple.nq) - expToNextNq;
-            hqExpOffset = (int)(leveTuple.leve.ExpReward * leveTuple.hq * 2) - expToNextHq;
+            nqExpOffset = (int)(leveTuple.leve!.Value.ExpReward * leveTuple.nq) - expToNextNq;
+            hqExpOffset = (int)(leveTuple.leve.Value.ExpReward * leveTuple.hq * 2) - expToNextHq;
         }
     }
 
@@ -102,8 +103,8 @@ public class CalculatorData(int index)
         var levePair = Data.BestLeves[Job][GetLevelKey(level)];
         var selectedLeve = Configuration.LargeLeves && levePair.large != null ? levePair.large : levePair.normal;
             
-        var nq = (int)MathF.Ceiling((float)nqExpNeeded / selectedLeve!.ExpReward);
-        var hq = (int)MathF.Ceiling((float)hqExpNeeded / (selectedLeve.ExpReward * 2));
+        var nq = (int)MathF.Ceiling((float)nqExpNeeded / selectedLeve!.Value.ExpReward);
+        var hq = (int)MathF.Ceiling((float)hqExpNeeded / (selectedLeve.Value.ExpReward * 2));
 
         return (selectedLeve, nq, hq);
     }

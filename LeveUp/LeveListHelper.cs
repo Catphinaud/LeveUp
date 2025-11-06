@@ -1,10 +1,10 @@
-﻿using Dalamud.Game.Text.SeStringHandling.Payloads;
+﻿using System.Numerics;
+using Dalamud.Bindings.ImGui;
+using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Utility;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
-using ImGuiNET;
 using LeveUp.Windows;
-using Lumina.Excel.GeneratedSheets;
-using OtterGui;
+using Lumina.Excel.Sheets;
 using ImGuiTable = Dalamud.Interface.Utility.ImGuiTable;
 
 namespace LeveUp;
@@ -57,7 +57,7 @@ public static class LeveListHelper
         }
     }
     
-    private static void CreateLeveTable(IEnumerable<Leve?> leves)
+    private static void CreateLeveTable(List<Leve> leves)
     {
         ImGuiTable.DrawTable(
             label: "test",
@@ -69,19 +69,19 @@ public static class LeveListHelper
         );
     }
     
-    private static void DrawLeveRow(Leve? leve)
+    private static void DrawLeveRow(Leve leve)
     {
-        DrawLeveCell(leve.Name, leve, true);
+        DrawLeveCell(leve.Name.ToString(), leve, true);
         DrawLeveCell(leve.ClassJobLevel.ToString(), leve);
-        DrawLeveCell(leve.PlaceNameIssued.Value.Name, leve, true);
+        DrawLeveCell(leve.PlaceNameIssued.Value.Name.ToString(), leve, true);
         DrawLeveCell(leve.ExpReward.ToString("N0"), leve);
-        var craft = Data.CraftLeves.GetRow((uint)leve.DataId);
-        var objective = craft.UnkData3[0];
-        var itemCount = objective.ItemCount > 1 ? 'x' + objective.ItemCount.ToString() : "";
-        DrawLeveCell($"{Data.GetItem(objective.Item).Name} {itemCount}", leve, true, objective);
+        var craft = Data.CraftLeves!.GetRow(leve.DataId.RowId);
+        var objective = craft.Item.First();
+        var itemCount = craft.ItemCount.First() > 1 ? 'x' + craft.ItemCount.First().ToString() : "";
+        DrawLeveCell($"{objective.ValueNullable.Value.Name.ToString()} {itemCount}", leve, true, objective.ValueNullable);
     }
     
-    private static void DrawLeveCell(string content, Leve? leve, bool highlight = false, CraftLeve.CraftLeveUnkData3Obj? objective = null)
+    private static void DrawLeveCell(string content, Leve? leve, bool highlight = false, Item? objective = null)
     {
         var column = ImGui.TableGetColumnIndex();
         ImGui.TableNextColumn();
@@ -116,14 +116,14 @@ public static class LeveListHelper
                     }
                     case 2:
                     {
-                        var level = leve.LevelLevemete.Value;
+                        var level = leve.Value.LevelLevemete.Value;
                         var coords = MapUtil.WorldToMap(new Vector3(level.X, level.Y, level.Z), level.Map.Value.OffsetX, level.Map.Value.OffsetY, 0, level.Map.Value.SizeFactor);
                         var payload = new MapLinkPayload(level.Territory.Value.RowId, level.Map.Value.RowId, coords.X, coords.Y);
                         Plugin.GameGui.OpenMapWithMapLink(payload);
                         break;
                     }
                     case 4:
-                        var recipe = Data.RecipeMap[(leve.LeveAssignmentType.Value.RowId, (uint)objective.Item)];
+                        var recipe = Data.RecipeMap[(leve.Value.LeveAssignmentType.Value.RowId, (uint)objective.Value.RowId)];
                         unsafe
                         {
                             AgentRecipeNote.Instance()->OpenRecipeByRecipeId(recipe);
@@ -144,7 +144,7 @@ public static class LeveListHelper
         {
             PopupOpened = true;
             MenuClickDelay = true;
-            ImGuiUtil.Center($"Replace suggested leve with:\n{ClickedLeve.Name}?");
+            ImGui.Text($"Replace suggested leve with:\n{ClickedLeve.Value.Name}?");
             if (ImGui.Button("Yes"))
             {
                 MenuClickDelay = false;

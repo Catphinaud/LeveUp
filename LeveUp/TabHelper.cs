@@ -1,4 +1,5 @@
-﻿using ImGuiNET;
+﻿using System.Numerics;
+using Dalamud.Bindings.ImGui;
 using LeveUp.Windows;
 
 namespace LeveUp;

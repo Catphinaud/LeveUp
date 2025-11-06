@@ -1,38 +1,18 @@
 {
   "version": 1,
   "dependencies": {
-    "net8.0-windows7.0": {
+    "net9.0-windows7.0": {
       "DalamudPackager": {
         "type": "Direct",
-        "requested": "[2.1.13, )",
-        "resolved": "2.1.13",
-        "contentHash": "rMN1omGe8536f4xLMvx9NwfvpAc9YFFfeXJ1t4P4PE6Gu8WCIoFliR1sh07hM+bfODmesk/dvMbji7vNI+B/pQ=="
+        "requested": "[13.1.0, )",
+        "resolved": "13.1.0",
+        "contentHash": "XdoNhJGyFby5M/sdcRhnc5xTop9PHy+H50PTWpzLhJugjB19EDBiHD/AsiDF66RETM+0qKUdJBZrNuebn7qswQ=="
       },
-      "JetBrains.Annotations": {
+      "DotNet.ReproducibleBuilds": {
         "type": "Direct",
-        "requested": "[2024.2.0, )",
-        "resolved": "2024.2.0",
-        "contentHash": "GNnqCFW/163p1fOehKx0CnAqjmpPrUSqrgfHM6qca+P+RN39C9rhlfZHQpJhxmQG/dkOYe/b3Z0P8b6Kv5m1qw=="
-      },
-      "Microsoft.Extensions.DependencyInjection": {
-        "type": "Direct",
-        "requested": "[9.0.0-preview.7.24405.7, )",
-        "resolved": "9.0.0-preview.7.24405.7",
-        "contentHash": "nTJRKADZrhKrSq/tzJSDr8Vidm6qe4XyACvneTJ+4W3Jq1U+Tlf5RMlqhalvfikLz+q6s+nF+ipPjRxxkY4VCQ==",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0-preview.7.24405.7"
-        }
-      },
-      "Serilog": {
-        "type": "Direct",
-        "requested": "[4.0.2-dev-02226, )",
-        "resolved": "4.0.2-dev-02226",
-        "contentHash": "CtwhD5MAXFV26m7Hi8WpS5A5h/lKugMcjrFf6hLDJbqWRfyaTWy/zHRykxyD5Z+oQxj+kC/NM9R4kzvdi+UYXw=="
-      },
-      "Microsoft.Extensions.DependencyInjection.Abstractions": {
-        "type": "Transitive",
-        "resolved": "9.0.0-preview.7.24405.7",
-        "contentHash": "ZuoB/44UTW4IbYfHk0yHtZH9LdHkfEeclxvniWs90T+f9x/NQtN4556iNIKar3MASCcrD0n2AE5y/Kv6buuNIA=="
+        "requested": "[1.2.25, )",
+        "resolved": "1.2.25",
+        "contentHash": "xCXiw7BCxHJ8pF6wPepRUddlh2dlQlbr81gXA72hdk4FLHkKXas7EH/n+fk5UCA/YfMqG1Z6XaPiUjDbUNBUzg=="
       }
     }
   }

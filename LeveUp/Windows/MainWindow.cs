@@ -1,25 +1,32 @@
-﻿using Dalamud.Interface.Windowing;
-using ImGuiNET;
+﻿using System.Numerics;
+using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Windowing;
 
 
 namespace LeveUp.Windows;
 
 public class MainWindow : Window, IDisposable
 {
-    public readonly Vector2 MinSize = new (717, 230);
+    public readonly Vector2 MinSize = new (717,730);
     public readonly Vector2 MinSizeX = new(float.MaxValue, 230);
     public readonly Vector2 ResizeableSize = new(float.MaxValue, float.MaxValue);
-    public float ExpandedHeight = 600;
+    public float ExpandedHeight = 1600;
     public bool Resize;
     
     // We give this window a hidden ID using ##
     // So that the user will see "My Amazing Window" as window title,
     // but for ImGui the ID is "My Amazing Window##With a hidden ID"
     public MainWindow()
-        : base("Leve Up!##MainWindow", ImGuiWindowFlags.None)
+        : base("Leve Up!##MainWindow")
     {
-        SetSizeConstraints(MinSizeX);
-        
+        // SetSizeConstraints(MinSizeX);
+
+        SizeConstraints = new WindowSizeConstraints
+        {
+            MinimumSize = MinSize,
+            MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
+        };
+
         LeveListHelper.MainWindow = this;
         TabHelper.MainWindow = this;
         LeveCalculatorHelper.MainWindow = this;
@@ -29,10 +36,9 @@ public class MainWindow : Window, IDisposable
     
     public override void Draw()
     {
-        CheckSizeConstraints();
+        // CheckSizeConstraints();
         TabHelper.DrawLeveJobTabs();
         //DrawLeveReplacementPopup();
-        ImGui.End();
     }
     
     private void CheckSizeConstraints()

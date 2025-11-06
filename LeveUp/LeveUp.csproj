@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="Dalamud.Plugin.Bootstrap.targets"/>
-
-  <PropertyGroup>
-    <Version>0.0.0.1</Version>
-    <Description>A sample plugin.</Description>
-    <PackageProjectUrl>https://github.com/goatcorp/LeveUp</PackageProjectUrl>
-    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
-    <IsPackable>false</IsPackable>
-    <RootNamespace>LeveUp</RootNamespace>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="..\Data\goat.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>false</Visible>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0-preview.7.24405.7" />
-    <PackageReference Include="Serilog" Version="4.0.2-dev-02226" />
-  </ItemGroup>
+<Project Sdk="Dalamud.NET.Sdk/13.1.0">
+    <PropertyGroup>
+        <Version>0.0.0.2</Version>
+        <Description>FFXIV Plugin to calculate how many times you need to complete a leve quest to reach a desired level</Description>
+        <PackageProjectUrl>https://github.com/goatcorp/LeveUp</PackageProjectUrl>
+        <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+        <IsPackable>false</IsPackable>
+        <AppendPlatformToOutputPath>false</AppendPlatformToOutputPath>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 </Project>

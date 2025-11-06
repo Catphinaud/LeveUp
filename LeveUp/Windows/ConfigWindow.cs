@@ -1,6 +1,7 @@
-﻿using Dalamud.Interface.Windowing;
-using ImGuiNET;
-using Lumina.Excel.GeneratedSheets;
+﻿using System.Numerics;
+using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Windowing;
+using Lumina.Excel;
 
 namespace LeveUp.Windows;
 
